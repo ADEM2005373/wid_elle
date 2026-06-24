@@ -367,5 +367,19 @@ export async function customFetch<T = unknown>(
     throw new ApiError(response, errorData, requestInfo);
   }
 
-  return (await parseSuccessBody(response, responseType, requestInfo)) as T;
+  const parsed = await parseSuccessBody(response, responseType, requestInfo) as unknown;
+
+  // Debugging: log common collection endpoints to help trace malformed responses
+  try {
+    const url = requestInfo.url || resolveUrl(input);
+    if (typeof url === "string") {
+      if (url.includes("/api/products")) console.debug("API /products response:", parsed);
+      if (url.includes("/api/collections")) console.debug("API /collections response:", parsed);
+      if (url.includes("/api/orders")) console.debug("API /orders response:", parsed);
+    }
+  } catch (e) {
+    // ignore logging errors
+  }
+
+  return parsed as T;
 }

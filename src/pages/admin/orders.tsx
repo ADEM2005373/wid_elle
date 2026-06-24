@@ -29,7 +29,15 @@ export default function AdminOrdersPage() {
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const [deleteId, setDeleteId] = useState<string | null>(null);
 
-  const { data: orders = [], isLoading } = useListOrders();
+  const { data: ordersData, isLoading } = useListOrders();
+  const orders: Order[] = Array.isArray(ordersData)
+    ? ordersData
+    : Array.isArray((ordersData as any)?.orders)
+    ? (ordersData as any).orders
+    : [];
+
+  if (!Array.isArray(ordersData)) console.error("Admin orders is not an array", ordersData);
+  console.log("Admin orders:", orders);
   const updateOrder = useUpdateOrder();
   const deleteOrder = useDeleteOrder();
 
@@ -38,7 +46,7 @@ export default function AdminOrdersPage() {
     queryClient.invalidateQueries({ queryKey: getGetOrderStatsQueryKey() });
   }
 
-  const filtered = filterStatus === "all" ? orders : orders.filter((o) => o.status === filterStatus);
+  const filtered = filterStatus === "all" ? orders : (Array.isArray(orders) ? orders.filter((o) => o.status === filterStatus) : []);
 
   function handleStatusChange(orderId: string, status: string) {
     updateOrder.mutate(
@@ -178,7 +186,7 @@ export default function AdminOrdersPage() {
               <div className="border-t border-border pt-4">
                 <p className="text-xs uppercase tracking-widest text-muted-foreground mb-3">Items</p>
                 <div className="space-y-2">
-                  {selectedOrder.items.map((item, i) => (
+                  {(Array.isArray(selectedOrder.items) ? selectedOrder.items : []).map((item, i) => (
                     <div key={i} className="flex justify-between text-sm">
                       <span>{item.quantity}× {item.productName}</span>
                       <span className="font-serif">{(item.price * item.quantity).toFixed(2)} TND</span>

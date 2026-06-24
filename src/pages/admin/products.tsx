@@ -15,7 +15,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useToast } from "@/hooks/use-toast";
 import { Pencil, Trash2, Plus } from "lucide-react";
-import type { Product } from "@/lib/api-client";
+import type { Product, Collection } from "@/lib/api-client";
 import { motion } from "framer-motion";
 
 const schema = z.object({
@@ -47,8 +47,25 @@ export default function AdminProductsPage() {
   const [editing, setEditing] = useState<Product | null>(null);
   const [deleteId, setDeleteId] = useState<string | null>(null);
 
-  const { data: products = [], isLoading } = useListProducts();
-  const { data: collections = [] } = useListCollections();
+  const { data: productsData, isLoading } = useListProducts();
+  const { data: collectionsData } = useListCollections();
+
+  const products: Product[] = Array.isArray(productsData)
+    ? productsData
+    : Array.isArray((productsData as any)?.products)
+    ? (productsData as any).products
+    : [];
+
+  const collections: Collection[] = Array.isArray(collectionsData)
+    ? collectionsData
+    : Array.isArray((collectionsData as any)?.collections)
+    ? (collectionsData as any).collections
+    : [];
+
+  if (!Array.isArray(productsData)) console.error("Admin products is not an array", productsData);
+  if (!Array.isArray(collectionsData)) console.error("Admin collections is not an array", collectionsData);
+  console.log("Admin products:", products);
+  console.log("Admin collections:", collections);
   const createProduct = useCreateProduct();
   const updateProduct = useUpdateProduct();
   const deleteProduct = useDeleteProduct();

@@ -12,11 +12,36 @@ const statusColors: Record<string, string> = {
 
 export default function AdminDashboardPage() {
   const { data: stats, isLoading: statsLoading } = useGetOrderStats();
-  const { data: orders = [], isLoading: ordersLoading } = useListOrders();
-  const { data: products = [] } = useListProducts();
-  const { data: collections = [] } = useListCollections();
+  const { data: ordersData, isLoading: ordersLoading } = useListOrders();
+  const { data: productsData } = useListProducts();
+  const { data: collectionsData } = useListCollections();
 
-  const recentOrders = orders.slice(0, 5);
+  const orders = Array.isArray(ordersData)
+    ? ordersData
+    : Array.isArray((ordersData as any)?.orders)
+    ? (ordersData as any).orders
+    : [];
+
+  const products = Array.isArray(productsData)
+    ? productsData
+    : Array.isArray((productsData as any)?.products)
+    ? (productsData as any).products
+    : [];
+
+  const collections = Array.isArray(collectionsData)
+    ? collectionsData
+    : Array.isArray((collectionsData as any)?.collections)
+    ? (collectionsData as any).collections
+    : [];
+
+  if (!Array.isArray(ordersData)) console.error("Admin orders is not an array", ordersData);
+  if (!Array.isArray(productsData)) console.error("Admin products is not an array", productsData);
+  if (!Array.isArray(collectionsData)) console.error("Admin collections is not an array", collectionsData);
+  console.log("Admin orders:", orders);
+  console.log("Admin products:", products);
+  console.log("Admin collections:", collections);
+
+  const recentOrders = Array.isArray(orders) ? orders.slice(0, 5) : [];
 
   const statCards = [
     { label: "Total Revenue", value: stats ? `${stats.revenue.toFixed(2)} TND` : "—", icon: TrendingUp, color: "text-accent" },
