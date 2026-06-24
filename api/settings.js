@@ -1,20 +1,32 @@
-import { readFile } from 'fs/promises';
-
 export default async function handler(req, res) {
+  // CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Content-Type', 'application/json');
 
-  if (req.method === 'OPTIONS') return res.status(200).end();
-  if (req.method !== 'GET') return res.status(405).json({ error: 'Method not allowed' });
+  // Handle OPTIONS for CORS
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+
+  // Only GET allowed
+  if (req.method !== 'GET') {
+    return res.status(405).json({ error: 'Method not allowed' });
+  }
 
   try {
-    const raw = await readFile(new URL('../../data/settings.json', import.meta.url), 'utf-8');
-    const data = JSON.parse(raw);
-    res.setHeader('Content-Type', 'application/json');
-    return res.status(200).json(data);
+    // Default settings object
+    const settings = {
+      storeName: 'Widelle',
+      storeDescription: 'Premium e-commerce store'
+    };
+    
+    console.log('GET /api/settings - returning settings');
+    return res.status(200).json(settings);
   } catch (err) {
-    console.error('/api/settings error', err);
-    return res.status(500).json({ error: 'Failed to read settings' });
+    console.error('GET /api/settings - error:', err.message);
+    // Return default settings on error
+    return res.status(200).json({ storeName: 'Widelle', storeDescription: 'Premium e-commerce store' });
   }
 }
