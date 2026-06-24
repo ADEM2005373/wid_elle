@@ -1,5 +1,3 @@
-import { readFile } from 'fs/promises';
-
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
@@ -15,12 +13,13 @@ export default async function handler(req, res) {
   }
 
   try {
-    const raw = await readFile(new URL('../data/collections.json', import.meta.url), 'utf-8');
-    const payload = JSON.parse(raw);
-    const collections = Array.isArray(payload) ? payload : [];
-    return res.status(200).json(collections);
+    return res.status(200).json({
+      status: 'ok',
+      uptime: process.uptime(),
+      timestamp: new Date().toISOString(),
+    });
   } catch (err) {
-    console.error('GET /api/collections error:', err);
-    return res.status(200).json([]);
+    console.error('GET /api/debug/status error:', err);
+    return res.status(500).json({ error: 'Server error' });
   }
 }
