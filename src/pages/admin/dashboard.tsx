@@ -125,7 +125,7 @@ export default function AdminDashboardPage() {
                     <p className="text-xs text-muted-foreground">{new Date(order.createdAt).toLocaleDateString()}</p>
                   </div>
                   <div className="flex items-center gap-6">
-                    <p className="font-serif text-sm">{order.total.toFixed(2)} TND</p>
+                    <p className="font-serif text-sm">{(typeof order.total === "number" ? order.total : 0).toFixed(2)} TND</p>
                     <span className={`text-xs px-2 py-0.5 ${statusColors[order.status] ?? "bg-gray-100 text-gray-700"}`}>
                       {order.status}
                     </span>

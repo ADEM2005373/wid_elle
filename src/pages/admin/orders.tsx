@@ -72,7 +72,7 @@ export default function AdminOrdersPage() {
     const rows = [
       ["ID", "Customer", "Phone", "Address", "Total", "Status", "Date"],
       ...filtered.map((o) => [
-        o.id, o.customerName, o.phone, `"${o.address}"`, o.total.toFixed(2), o.status,
+        o.id, o.customerName, o.phone, `"${o.address}"`, (typeof o.total === "number" ? o.total : 0).toFixed(2), o.status,
         new Date(o.createdAt).toLocaleDateString(),
       ]),
     ];
@@ -142,7 +142,7 @@ export default function AdminOrdersPage() {
                     <p className="text-sm font-medium">{order.customerName}</p>
                     <p className="text-xs text-muted-foreground">{order.phone}</p>
                   </div>
-                  <p className="font-serif text-sm">{order.total.toFixed(2)} TND</p>
+                  <p className="font-serif text-sm">{(typeof order.total === "number" ? order.total : 0).toFixed(2)} TND</p>
                   <Select value={order.status} onValueChange={(v) => handleStatusChange(order.id, v)}>
                     <SelectTrigger className={`text-xs w-28 border ${statusColors[order.status] ?? ""}`} data-testid={`select-status-${order.id}`}>
                       <SelectValue />
@@ -195,7 +195,7 @@ export default function AdminOrdersPage() {
                 </div>
                 <div className="flex justify-between items-center mt-3 pt-3 border-t border-border">
                   <span className="text-xs uppercase tracking-widest">Total</span>
-                  <span className="font-serif text-xl">{selectedOrder.total.toFixed(2)} TND</span>
+                  <span className="font-serif text-xl">{(typeof selectedOrder.total === "number" ? selectedOrder.total : 0).toFixed(2)} TND</span>
                 </div>
               </div>
               <div className="border-t border-border pt-4">

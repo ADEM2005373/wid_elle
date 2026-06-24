@@ -381,5 +381,16 @@ export async function customFetch<T = unknown>(
     // ignore logging errors
   }
 
+  // If the server returned HTML (e.g. a SPA index.html) instead of JSON,
+  // throw a descriptive error so callers see a clear failure instead of
+  // attempting to treat HTML as structured data.
+  if (typeof parsed === "string") {
+    const trimmed = parsed.trim();
+    if (trimmed.startsWith("<")) {
+      console.error("Received HTML from API when JSON expected:", { url: requestInfo.url, bodyPreview: trimmed.slice(0, 200) });
+      throw new ResponseParseError(response, String(parsed), new Error("Received HTML response"), requestInfo);
+    }
+  }
+
   return parsed as T;
 }
