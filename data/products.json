@@ -1,0 +1,62 @@
+[
+  {
+    "id": "prod-001",
+    "name": "Maison Classique",
+    "price": 390,
+    "collection": "maison",
+    "badge": "Bestseller",
+    "description": "A structured tote of exceptional refinement, handcrafted from full-grain leather sourced from Tunisian tanneries. Clean lines and a quiet confidence define this piece — the bag for the woman who needs nothing to prove.",
+    "image": "",
+    "createdAt": "2025-01-01T10:00:00.000Z"
+  },
+  {
+    "id": "prod-002",
+    "name": "Baya Mini",
+    "price": 245,
+    "collection": "baya",
+    "badge": "New",
+    "description": "Petite but impactful. The Baya Mini is a crossbody companion for evenings out — its compact silhouette conceals a thoughtfully organized interior. Available in signature blush.",
+    "image": "",
+    "createdAt": "2025-01-02T10:00:00.000Z"
+  },
+  {
+    "id": "prod-003",
+    "name": "Sahara Tote",
+    "price": 455,
+    "collection": "sahara",
+    "badge": null,
+    "description": "Inspired by the vast, unhurried expanses of the Tunisian desert, the Sahara Tote carries everything with effortless grace. Generous proportions, sculptural handles, and hand-stitched detailing throughout.",
+    "image": "",
+    "createdAt": "2025-01-03T10:00:00.000Z"
+  },
+  {
+    "id": "prod-004",
+    "name": "Maison Clutch",
+    "price": 180,
+    "collection": "maison",
+    "badge": null,
+    "description": "The evening companion to the Maison collection. A sleek envelope clutch with a hidden magnetic closure and interior card slots. Compact luxury in its purest form.",
+    "image": "",
+    "createdAt": "2025-01-04T10:00:00.000Z"
+  },
+  {
+    "id": "prod-005",
+    "name": "Baya Hobo",
+    "price": 320,
+    "collection": "baya",
+    "badge": null,
+    "description": "The relaxed, effortless shape of the Baya Hobo belies its extraordinary construction. Soft supple leather that moulds to your body over time — a bag that becomes more beautiful with use.",
+    "image": "",
+    "createdAt": "2025-01-05T10:00:00.000Z"
+  },
+  {
+    "id": "prod-006",
+    "name": "Sahara Sac",
+    "price": 290,
+    "collection": "sahara",
+    "badge": "Limited",
+    "description": "A limited-edition bucket bag from the Sahara collection. Hand-burnished leather with a drawstring closure and adjustable strap. Only 50 pieces produced — each numbered.",
+    "image": "",
+    "createdAt": "2025-01-06T10:00:00.000Z"
+  }
+]

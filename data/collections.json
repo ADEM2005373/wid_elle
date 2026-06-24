@@ -1,0 +1,26 @@
+[
+  {
+    "id": "col-001",
+    "name": "Maison",
+    "slug": "maison",
+    "description": "Structured elegance for the modern Tunisian woman. The Maison collection is defined by clean architectural lines and enduring craft.",
+    "image": null,
+    "createdAt": "2025-01-01T10:00:00.000Z"
+  },
+  {
+    "id": "col-002",
+    "name": "Baya",
+    "slug": "baya",
+    "description": "Soft, relaxed forms that move with you. Named after the Tunisian word for beauty, the Baya collection celebrates effortless femininity.",
+    "image": null,
+    "createdAt": "2025-01-02T10:00:00.000Z"
+  },
+  {
+    "id": "col-003",
+    "name": "Sahara",
+    "slug": "sahara",
+    "description": "Inspired by the sweeping landscapes of southern Tunisia. Generous proportions, earthy tones, and an unhurried soul.",
+    "image": null,
+    "createdAt": "2025-01-03T10:00:00.000Z"
+  }
+]
